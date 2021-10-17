@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>厦门大学本科课程GPA计算器</title>
+<style>
+#main {
+	width: 75%;
+    float: left;
+}
+/*设置主页面的宽度为50%，靠左侧*/
+.aside {
+	width: 20%;
+	float: right;
+	background-color: lightgrey;
+}
+/*设置宽度为20%，靠右侧，背景颜色是lightgrey*/
+table.courses {
+	border-collapse:collapse;
+}
+/*为表格设置合并边框模型*/
+th {
+	background-color: lightBlue;
+}
+/*设置背景颜色是lightBlue*/
+td {
+    padding: 5px 20px;
+	text-align: center;	
+}
+/*设置内边距宽5px高20px*/
+.course {
+	border-bottom: silver 1px solid;
+}
+/*设置底部边框实线，1px宽，颜色silver*/
+.credit, .score, #totalCredit, #totalGradePoint, #gpa {
+    border: 0;
+    border-bottom: red solid 1px;
+    background-color: inherit;
+    text-align: center;
+}
+/*设置边框只有下边框，颜色是red，实线，1px宽，背景颜色继承，文字在中间*/
+.point, .gradePoint {
+    border: 0;
+    background-color: inherit;
+    text-align: center;
+}
+/*设置无边框，背景颜色继承，文字在中间*/
+.point, .gradePoint, #totalCredit, #totalGradePoint, #gpa {
+	cursor: default;
+}
+/*设置游标是默认的*/
+.addCourse {
+	margin-top: 20px;
+    background-color: lightGreen;
+    cursor: pointer;
+}
+/*设置上边距是20px，背景lightGreen，游标是指针*/
+.removeCourse {
+	color: lightCoral;
+    cursor: pointer;
+}
+/*设置颜色是lightCoral，游标是指针*/
+.removeCourse:hover{
+	color: red;
+	font-weight: bolder;
+    text-decoration: underline;
+}
+/*设置颜色是red，字体是粗体，文字有下划线*/
+</style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<!--  引入jquery.min.j文件-->
+<script type="text/javascript" src="gpa.js"></script>
+<!--  引入gpa.js文件-->
+</head>
+<body>
+  <div id="wrap" class="container">
+    <h1>厦门大学本科课程GPA计算器</h1>
+<!--    标题-->
+    <div id="main">
+      <form id="GPAForm">
+        <table border="1" class="courses">
+<!--          表格-->
+          <colgroup>
+            <col class="credit" />
+            <col class="score" />
+            <col class="point" />
+            <col class="gradePoint" />
+            <col class="operation" />
+          </colgroup>
+          <tr>
+            <th>课程学分<br />Credit</th>
+            <th>课程分数<br />Score</th>
+            <th>课程绩点<br />Point</th>
+            <th>学分绩点<br />Grade Point</th>
+            <th></th>
+          </tr>
+          <tr class="course">
+            <td><input type="text" size="3" maxlength="3" placeholder="credit" class="credit" onchange="javascript:CourseChanged(this.parentNode.parentNode);" /></td>
+            <td>
+            <input type="text" size="3" maxlength="3" placeholder="score" class="score" onchange="javascript:CourseScoreChanged(this.parentNode.parentNode);" />
+            OR
+<!--              选择框-->
+            <select class="grade" onchange="javascript:CourseGradeChanged(this.parentNode.parentNode);">
+              <option value="">--选择等级--</option>
+              <option value="4.0">优</option>
+              <option value="3.0">良</option>
+              <option value="1.3">及格</option>
+              <option value="0">不及格</option>
+              <option value="4.0">A+</option>
+              <option value="4.0">A</option>
+              <option value="3.7">A-</option>
+              <option value="3.3">B+</option>
+              <option value="3">B</option>
+              <option value="2.7">B-</option>
+              <option value="2.3">C+</option>
+              <option value="2">C</option>
+              <option value="1.7">C-</option>
+              <option value="1.0">D</option>
+              <option value="0">F</option>
+            </select>
+            </td>
+            <td><input type="text" size="4" maxlength="4" placeholder="point" class="point" readonly="readonly"/></td>
+            <td><input type="text" size="7" maxlength="5" placeholder="grade point" class="gradePoint" readonly="readonly" /></td>
+            <td><a class="removeCourse" onclick="javascript:RemoveCourse(this.parentNode.parentNode);">删除此课</a></td>
+          </tr>
+        </table>
+        <input type="button" value="添加课程" class="addCourse" onclick="javascript:AddCourse(this);" />
+        <hr />
+        <div id="totals">
+          <label>学分总计：
+            <input id="totalCredit" type="text" size="7" maxlength="7" placeholder="请先填表" readonly="readonly" />
+          </label>
+          <label>学分绩点总计：
+            <input id="totalGradePoint" type="text" size="7" maxlength="7" placeholder="请先填表" readonly="readonly" />
+          </label>
+          <label>GPA：
+            <input id="gpa" type="text" size="7" maxlength="7" placeholder="请先填表" readonly="readonly" />
+          </label>
+        </div>
+      </form>
+    </div><!-- #main -->
+    <div class="aside">
+      <div class="section">
+        <div class="article">
+          <table>
+	        <caption>百分制等级对照表</caption>
+            <tr><td>百分制</td><td>等级制</td><td>绩点</td></tr>
+            <tr><td>95-100</td><td>A+</td><td>4.0</td></tr>
+            <tr><td>90-94</td><td>A</td><td>4.0</td></tr>
+            <tr><td>85-89</td><td>A-</td><td>3.7</td></tr>
+            <tr><td>81-84</td><td>B+</td><td>3.3</td></tr>
+            <tr><td>78-80</td><td>B</td><td>3.0</td></tr>
+            <tr><td>75-77</td><td>B-</td><td>2.7</td></tr>
+            <tr><td>72-74</td><td>C+</td><td>2.3</td></tr>
+            <tr><td>68-71</td><td>C</td><td>2.0</td></tr>
+            <tr><td>64-67</td><td>C-</td><td>1.7</td></tr>
+            <tr><td>60-63</td><td>D</td><td>1.0</td></tr>
+            <tr><td>60以下</td><td>F</td><td>0</td></tr>
+          </table>
+          <p>原有四级记分制的成绩：优（85-100）、良（70-84）、及格（60-69）、不及格（未达60分为不及格），按照就高不就低原则对应绩点。</p>
+          <p>其中“优”对应绩点为4.0,“良”对应绩点为3.0，“及格”对应绩点为“1.3”，“不及格”对应绩点为“0”。两级记分制（合格、不合格）的课程成绩，不纳入课程学分绩点计算。</p>
+	      <p>从2012-2013学年开始，成绩登记将不再采用四级记分制。</p>
+	    </div><!-- .article -->
+      </div><!-- .section -->
+    </div><!-- .aside -->
+  </div>
+</body>
+</html>
+

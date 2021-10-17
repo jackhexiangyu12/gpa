@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厦门大学本科课程GPA计算器</title>
+    <style>
+        #main {
+            width: 75%;
+            float: left;
+        }
+
+        .aside {
+            width: 20%;
+            float: right;
+            background-color: lightgray;
+        }
+
+        table.courses {
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: lightblue;
+        }
+
+        td {
+            padding: 5px 20px;
+            text-align: center;
+        }
+
+        .course {
+            border-bottom: silver 1px solid;
+        }
+
+        .credit, .score, #totalCredit，#totalGradePoint, #gpa {
+            border: 0;
+            border-bottom: red solid 1px;
+            background-color: inherit;
+            text-align: center;
+        }
+
+        .point, .gradePoint {
+            border: 0;
+            background-color: inherit;
+            text-align: center;
+        }
+
+        .point, .gradePoint, #totalCredit, #totalGradePoint, #gpa {
+            cursor: default;
+        }
+
+        .addCourse {
+            margin-top: 20px;
+            background-color: lightgreen;
+            cursor: pointer;
+        }
+
+        .removeCourse {
+            color: lightcoral;
+            cursor: pointer;
+        }
+
+        .removeCourse:hover {
+            color: red;
+            font-weight: bolder;
+            text-decoration: underline;
+        }
+    </style>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="gps.js"></script>
+</head>
+<body>
+<div id="wrap" class="container">
+    <h1>厦门大学本科GPA</h1>
+    <div id="main">
+        <form id="GPAform">
+            <p>通过本程序，可以方便的计算出您所修读的课程的GPA。具体方法是在下面的方框中输入您</p>
+            <p>修读获得的课程学分和课程分数（如果是等级制的，在下拉框选择对应等级），页面下方会</p>
+            <p>累计加权结果。如果某门课程输入有误，直接点击“删除此课”按钮即可。</p>
+            <table border="1" class="courses">
+                <colgroup>
+                    <col class="credit"/>
+                    <col class="score" />
+                    <col class="point" />
+                    <col class="gradePoint"/>
+                    <col class="operation"/>
+                </colgroup>
+                <tr>
+                    <th>课程学分<br />Credit</th>
+                    <th>课程分数<br />Score</th>
+                    <th>课程基地<br>Point</th>
+                    <th>学分绩点<br>Grade Point</th>
+                    <th></th>
+                </tr>
+                <tr class="course">
+                    <td><input type="text" size="3" maxlength="3" placeholder="credit" ></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

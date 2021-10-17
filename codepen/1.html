@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="1.css">
+    <script src="vue.js" type="text/javascript" charset="utf-8"></script><!--引入vue-->
+
+    <script type="module">
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.js'
+</script>
+</head>
+<body>
+<div id="app1">
+  <button @click="showModal = true" class="button">Show Modal</button>
+  <transition name="fade" appear>
+    <div class="modal-overlay"
+         v-if="showModal"
+         @click="showModal = false"></div>
+  </transition>
+  <transition name="pop" appear>
+    <div class="modal"
+         role="dialog"
+         v-if="showModal"
+         >
+      <h1>Vue Transitions</h1>
+      <p>The <code>&lt;transition&gt;</code> component in Vue can create wonderful animated entrances and exits.</p>
+      <button @click="showModal = false" class="button">Hide Modal</button>
+    </div>
+  </transition>
+</div>
+<div id="app">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+<p>{{}}</p>
+<m-button-group>
+  <m-button type="info">首页</m-button>
+  <m-button type="info">热门</m-button>
+  <m-button type="info">专栏</m-button>
+</m-button-group>
+<script src="1.js" type="text/javascript" charset="utf-8"></script><!--引入main-->
+</body>
+</html>
